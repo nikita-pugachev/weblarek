@@ -103,7 +103,7 @@ Presenter - презентер содержит основную логику п
 
 1. Интерфейс, описывающий данные о товаре
 
-```javascript
+```typescript
 interface IProduct {
     id: string,
     description: string,
@@ -129,7 +129,7 @@ interface IProduct {
 
 2. Интерфейс, описывающий данные о покупателе
 
-```javascript
+```typescript
 interface IBuyer {
     payment: TPayment,
     email: string,
