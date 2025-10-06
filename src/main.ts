@@ -3,6 +3,8 @@ import { ProductCatalog } from './components/Models/ProductCatalog';
 import { Basket } from './components/Models/Basket';
 import { Buyer } from './components/Models/Buyer';
 import { apiProducts } from './utils/data';
+import { Communication } from './components/Models/Communication';
+import { API_URL, CDN_URL } from './utils/constants';
 
 const ProductCatalogModel = new ProductCatalog();
 ProductCatalogModel.saveProductsList(apiProducts.items);
@@ -14,11 +16,28 @@ console.log('Корзина после добавления товара: ', Bas
 
 const BuyerModel = new Buyer();
 BuyerModel.saveBuyerData({
-    payment: "online",
+    payment: "cash",
     email: "nikita@yandex.ru",
     phone: "88005553535",
     address: "Moscow, Pushkin Street"
 })
-
 console.log('Инофрмация о покупателе: ', BuyerModel.getBuyerData());
 
+const CommunicationModel = new Communication(API_URL);
+try {
+    const products = await CommunicationModel.getProductList();
+    console.log('Ответ от сервера с каталогом товаров: ', products);
+} catch (error) {
+    console.error('Ошибка при получении данных с сервера: ', error);
+}
+
+try {
+    const order = {
+        buyer: BuyerModel.getBuyerData(),
+        items: BasketModel.getProductToBasket()
+    };
+    const orderResponse = await CommunicationModel.postData(order);
+    console.log('Ответ от сервера после оформления заказа: ', orderResponse);
+} catch (error) {
+    console.error('Ошибка при отправке данных на сервер: ', error);
+}
