@@ -1,3 +1,5 @@
+https://github.com/nikita-pugachev/weblarek.git
+
 # Проектная работа "Веб-ларек"
 
 Стек: HTML, SCSS, TS, Vite

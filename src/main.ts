@@ -4,7 +4,7 @@ import { Basket } from './components/Models/Basket';
 import { Buyer } from './components/Models/Buyer';
 import { apiProducts } from './utils/data';
 import { Communication } from './components/Models/Communication';
-import { API_URL, CDN_URL } from './utils/constants';
+import { API_URL } from './utils/constants';
 
 const ProductCatalogModel = new ProductCatalog();
 ProductCatalogModel.saveProductsList(apiProducts.items);
@@ -32,8 +32,12 @@ try {
 }
 
 try {
+    const buyerData = BuyerModel.getBuyerData();
+    if (!buyerData) {
+        throw new Error('Нет данных о покупателе');
+    }
     const order = {
-        buyer: BuyerModel.getBuyerData(),
+        buyer: buyerData,
         items: BasketModel.getProductToBasket()
     };
     const orderResponse = await CommunicationModel.postData(order);
