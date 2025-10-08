@@ -2,7 +2,7 @@ import { IProduct } from '../../types/';
 
 export class ProductCatalog {
     productsList: IProduct[] = [];
-    choosenProducts: IProduct | null = null;
+    choosenProduct: IProduct | null = null;
 
     saveProductsList(products: IProduct[]): void {
         this.productsList = products;
@@ -13,14 +13,14 @@ export class ProductCatalog {
     }
 
     getProductById(id: string): IProduct | undefined {
-        return this.productsList.filter(item => item.id === id)[0];
+        return this.productsList.find(item => item.id === id);
     }
 
     saveChoosenProduct(product: IProduct): void {
-        this.choosenProducts = product;
+        this.choosenProduct = product;
     }
 
     getChoosenProduct(): IProduct | null {
-        return this.choosenProducts;
+        return this.choosenProduct;
     }
 }
