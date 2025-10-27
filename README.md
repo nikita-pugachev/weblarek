@@ -230,9 +230,9 @@ interface IBuyer {
 
 Поля класса:
 
-`BasketButton: HTMLButtonElement` - кнопка корзины в шапке.
+`basketButton: HTMLButtonElement` - кнопка корзины в шапке.
 
-`CounterElement: HTMLElement` - счетчик товаров в корзине.
+`counterElement: HTMLElement` - счетчик товаров в корзине.
 
 Коструктор класса:
 
@@ -246,17 +246,13 @@ interface IBuyer {
 
 Класс отвечает за отображение католога товаров на странице.
 
-Поля класса:
-
-`catalogElement: HTMLElement` - контейнер для отображения товаров.
-
 Конструктор класса: 
 
 `constructor(container: HTMLElement)` - В конструктор передается HTML элемент, в который будет помещен католог товаров.
 
 Методы класса: 
 
-`set catalog(item: HTMLElement[])` - сеттер для отображение каталога товаров.
+`set catalog(products: HTMLElement[])` - сеттер для отображение каталога товаров.
 
 3. Класс `Modal`.
 
@@ -264,7 +260,7 @@ interface IBuyer {
 
 Поля класса: 
 
-`ModalElement: HTMLElement` - HTML элемент, куда помещается контент.
+`modalElement: HTMLElement` - HTML элемент, куда помещается контент.
 
 `closeButton: HTMLButtonElement` - кнопка закрытия модального окна.
 
@@ -308,9 +304,9 @@ interface IBuyer {
 
 Поля класса: 
 
-`CardCategory: HTMLElement` - отвечает за категорию товара.
+`cardCategory: HTMLElement` - отвечает за категорию товара.
 
-`CardImage: HTMLImageElement` - отвечает за фотографию товара.
+`cardImage: HTMLImageElement` - отвечает за фотографию товара.
 
 Конструктор класса:
 
@@ -318,11 +314,9 @@ interface IBuyer {
 
 Методы класса:
 
-`set image(item: HTMLImageElement)` - сеттер, который необходим для установки изображения товару.
+`set image(value: string)` - сеттер, который необходим для установки изображения товару.
 
 `set category(value: string)` - сеттер, который необходим для установки категории товару.
-
-`render(data: TCard)` - рендерит карточку товаров с помощью данных.
 
 6. Класс `CardPreview`.
 
@@ -330,13 +324,13 @@ interface IBuyer {
 
 Поля класса:
 
-`CardImage: HTMLImageElement` - отвечает за фотографию товара.
+`cardImage: HTMLImageElement` - отвечает за фотографию товара.
 
-`CardCategory: HTMLElement` - отвечает за категорию товара.
+`cardCategory: HTMLElement` - отвечает за категорию товара.
 
-`CardDescription: HTMLElement` - отвечает за описание товара.
+`cardDescription: HTMLElement` - отвечает за описание товара.
 
-`CardButton: HTMLButtonElement` - отвечает за кнопку добавления товара в корзину, а если товар уже в корзине - за его удаление.
+`cardButton: HTMLButtonElement` - отвечает за кнопку добавления товара в корзину, а если товар уже в корзине - за его удаление.
 
 `isAdded: boolean` - флаг, отвечающий за то, находится ли выбранный товар уже в корзине или нет.
 
@@ -346,13 +340,11 @@ interface IBuyer {
 
 Методы класса: 
 
-`set image(item: HTMLImageElement)` - сеттер, который необходим для установки изображения товару.
+`set image(value: string)` - сеттер, который необходим для установки изображения товару.
 
 `set category(value: string)` - сеттер, который необходим для установки категории товару.
 
 `set description(value: string)` - сеттер, который необходим для установки описания выбранной карточке товара.
-
-`render(data: TCard)` - рендерит карточку товаров с помощью данных.
 
 7. Класс `CardBasket`.
 
@@ -360,9 +352,9 @@ interface IBuyer {
 
 Поля класса:
 
-`CardIndex: HTMLElement` - отвечает за порядковый номер товара в корзине.
+`cardIndex: HTMLElement` - отвечает за порядковый номер товара в корзине.
 
-`CardButtonRemove: HTMLButtonElement` - отвечает за кнопку удаления товара из корзины.
+`cardButtonRemove: HTMLButtonElement` - отвечает за кнопку удаления товара из корзины.
 
 Конструктор класса:
 
@@ -372,25 +364,25 @@ interface IBuyer {
 
 `set index(value: number)` - сеттер, который необходим для установки порядкового номера товару в корзине.
 
-`render(data: TCard)` - рендерит карточку товаров с помощью данных.
-
 8. Класс `BasketShop`.
 
 Класс является контейнером для отображения товаров в корзине, а также отвечает за отображение интерфейса оформления заказа.
 
+Поля класса:
+
+`basketTitle: HTMLElement` - отвечает за заголовок корзины.
+
+`basketButton: HTMLButtonElement` - отвечает за кнопку оформления заказа.
+
+`basketContainer: HTMLElement` - является контейнером для товаров, попадающих в корзину.
+
+`totalPrice: HTMLElement` - отвечает за отображение общей стоимости всех товаров, находящихся в корзине.
+
+`buttonStatus: boolean` - отвечает за состояние кнопки оформления заказа.
+
 Конструктор класса: 
 
 `constructor(container: HTMLElement, events: IEvents)` - В конструктор передается HTMLELement, то есть интерфейс корзины, а также объект, отвечающий за обработку событий.
-
-Поля класса:
-
-`BasketTitle: HTMLElement` - отвечает за заголовок корзины.
-
-`BasketButton: HTMLButtonElement` - отвечает за кнопку оформления заказа.
-
-`BasketContainer: HTMLElement` - является контейнером для товаров, попадающих в корзину.
-
-`TotalPrice: HTMLElement` - отвечает за отображение общей стоимости всех товаров, находящихся в корзине.
 
 Методы класса:
 
@@ -406,25 +398,19 @@ interface IBuyer {
 
 Поля класса:
 
-`ButtonPaymentOnline: HTMLButtonElement` - кнопка, отвечающая за способ оплаты онлайн.
+`buttonPaymentOnline: HTMLButtonElement` - кнопка, отвечающая за способ оплаты онлайн.
 
-`ButtonPaymentOffline: HTMLButtonElement` - кнопка, отвечающая за способ оплаты офлайн.
+`buttonPaymentOffline: HTMLButtonElement` - кнопка, отвечающая за способ оплаты офлайн.
 
-`AddressInput: HTMLInputElement` - инпут для ввода адреса пользователем.
+`addressInput: HTMLInputElement` - инпут для ввода адреса пользователем.
 
 Конструктор класса:
 
-`constructor(container: HTMLElement, events: IEvents, action: IOrderForm)` - В конструктор передается HTMLELement, то есть интерфейс формы, обработчик действий формы, а также объект, отвечающий за обработку событий.
+`constructor(container: HTMLElement, events: IEvents)` - В конструктор передается HTMLELement, то есть интерфейс формы, обработчик действий формы, а также объект, отвечающий за обработку событий.
 
-Методы класса: 
+Методы класса:
 
 `set payment(value: TPayment)` - сеттер, который необходим для установки способа оплаты.
-
-`PaymentSelect(payment: TPayment)` - метод для выбора способа оплаты.
-
-`set address(value: string)` - сеттер, который необходим для установки адреса пользователя.
-
-`isValid()` - проверка валидности формы.
 
 10. Класс `Contact`.
 
@@ -432,21 +418,13 @@ interface IBuyer {
 
 Поля класса:
 
-`EmailInput: HTMLInputElement` - инпут для воода email.
+`emailInput: HTMLInputElement` - инпут для воода email.
 
-`PhoneInput: HTMLInputElement` - инпут для ввода номера телефона.
+`phoneInput: HTMLInputElement` - инпут для ввода номера телефона.
 
 Конструктор класса:
 
 `constructor(container: HTMLElement, action: IContact)` - В конструктор передается HTMLELement, то есть интерфейс формы, обработчик действий формы, а также объект, отвечающий за обработку событий.
-
-Методы класса:
-
-`set email(value: string)` - сеттер, который необходим для установки email пользователя.
-
-`set phone(value: string)` - сеттер, который необходим для установки номера телефона пользователя.
-
-`isValid()` - проверка валидности формы.
 
 #### Переиспользуемые сущности
 
@@ -458,9 +436,9 @@ interface IBuyer {
 
 Поля класса:
 
-`CardTitle: HTMLElement` - отвечает за название товара.
+`cardTitle: HTMLElement` - отвечает за название товара.
 
-`CardPrice: HTMLElement` - отвечает за стоимость товара.
+`cardPrice: HTMLElement` - отвечает за стоимость товара.
 
 Конструктор класса:
 
@@ -478,13 +456,13 @@ interface IBuyer {
 
 Поля класса:
 
-`FormError: HTMLElement` - отвечает за ошибки заполнения формы.
+`formError: HTMLElement` - отвечает за ошибки заполнения формы.
 
-`FormButton: HTMLButtonElement` - отвечает за кнопку подтверждения в форме.
+`formButton: HTMLButtonElement` - отвечает за кнопку подтверждения в форме.
 
 Конструктор класса:
 
-`constructor(container: HTMLElement, action: IForm)` - В конструктор передается HTMLElement, то есть общие элементы для дочерних классов и обработчик действий формы.
+`constructor(container: HTMLElement, events: IEvents)` - В конструктор передается HTMLElement, то есть общие элементы для дочерних классов и обработчик действий формы.
 
 Методы класса:
 
