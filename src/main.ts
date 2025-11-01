@@ -196,7 +196,7 @@ events.on('contacts:submit', () => {
 
 events.on('success:agree', () => {
     modal.closeModal();
-})
+});
 
 
 
