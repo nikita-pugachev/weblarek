@@ -24,9 +24,17 @@ export class Contact extends Form<IContactForm> {
         });
 
         this.phoneInput.addEventListener('input', () => {
-            const field = 'email';
+            const field = 'phone';
             const value = this.phoneInput.value;
             this.onInputChange(field, value);
         });
+    }
+
+    set email(value: string) {
+        this.emailInput.value = value;
+    }
+
+    set phone(value: string) {
+        this.phoneInput.value = value;
     }
 }

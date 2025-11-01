@@ -19,7 +19,7 @@ export class CardPreview extends Card<IProduct> {
         this.cardButton = ensureElement<HTMLButtonElement>('.card__button', this.container);
 
         this.cardButton.addEventListener('click', () => {
-            this.events.emit('card__preview:click', {id: this.id});
+            this.events.emit('card__preview:click');
         })
     }
 
@@ -44,7 +44,10 @@ export class CardPreview extends Card<IProduct> {
     }
 
     set buttonText(value: string) {
-        this.cardButton.textContent = value;
+        this.cardButton.textContent = String(value);
+        if(value === 'Недоступно') {
+            this.cardButton.disabled = true;
+        }
     }
 }
 

@@ -1,11 +1,15 @@
 import { IProduct } from '../../types/';
+import { IEvents } from '../base/Events';
 
 export class ProductCatalog {
     productsList: IProduct[] = [];
     choosenProduct: IProduct | null = null;
 
+    constructor(protected events: IEvents) {}
+
     saveProductsList(products: IProduct[]): void {
         this.productsList = products;
+        this.events.emit('catalog:change');
     }
 
     getProductsList(): IProduct[] {
@@ -16,8 +20,9 @@ export class ProductCatalog {
         return this.productsList.find(item => item.id === id);
     }
 
-    saveChoosenProduct(product: IProduct): void {
-        this.choosenProduct = product;
+    saveChoosenProduct(id: string): void {
+        this.choosenProduct = this.productsList.filter(item => item.id === id)[0];
+        this.events.emit('card:choose');
     }
 
     getChoosenProduct(): IProduct | null {

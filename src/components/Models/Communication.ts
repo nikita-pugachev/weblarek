@@ -8,10 +8,10 @@ export class Communication extends Api {
     }
 
     getProductList(): Promise<IProductResponse> {
-        return this.get('/products/');
+        return this.get('/product/');
     }
 
-    postData(order: IOrder): Promise<IOrderResponse> {
+    postData(order: IOrderResponse): Promise<IOrderResponse> {
         return this.post('/order/', order);
     }
 }

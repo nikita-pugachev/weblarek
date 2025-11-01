@@ -15,6 +15,11 @@ export abstract class Form<T extends IForm> extends Component<T> {
 
         this.formError = ensureElement<HTMLElement>('.form__errors', this.container);
         this.formButton = ensureElement<HTMLButtonElement>('.modal__actions button', this.container);
+
+            this.container.addEventListener('submit', (e: Event) => {
+                e.preventDefault();
+                this.events.emit(`${this.container.getAttribute('name')}:submit`);
+            });
     }
 
     set error(value: string) {

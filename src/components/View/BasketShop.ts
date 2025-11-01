@@ -31,10 +31,15 @@ export class BasketShop extends Component<IBasketShop> {
     }
 
     set basket(items: HTMLElement[]) {
-        if(!items) {
-            this.basketContainer.textContent = 'Корзина пуста';
+        if(items.length === 0) {
+            const description = document.createElement('P');
+            description.textContent = 'Корзина пуста';
+            this.basketContainer.replaceChildren(description);
+            this.basketButton.disabled = true;
+        } else {
+            this.basketContainer.replaceChildren(...items);
+            this.basketButton.disabled = false;
         }
-        this.basketContainer.replaceChildren(...items);
     }
 
     set buttonStatus(value: boolean) {

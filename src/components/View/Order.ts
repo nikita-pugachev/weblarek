@@ -43,4 +43,8 @@ export class Order extends Form<IOrderForm> {
         this.buttonPaymentOnline.classList.toggle('button_alt-active', value === 'card');
         this.buttonPaymentOffline.classList.toggle('button_alt-active', value === 'cash');
     }
+
+    set address(value: string) {
+        this.adressInput.value = value;
+    }
 }

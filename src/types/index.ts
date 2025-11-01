@@ -25,7 +25,7 @@ export interface IBuyer {
 
 export interface IOrder {
     buyer: IBuyer,
-    items: IProduct[]
+    items: IProduct[] 
 }
 
 export interface IOrderResponse {
