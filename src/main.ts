@@ -93,13 +93,18 @@ events.on('basket:open', () => {
 
 events.on('basket:add-card', () => {
     header.counter = basket.getCountProductToBasket();
-    basketShop.basket = basket.getProductToBasket().map((item, index) => {
-        const productBasket = new CardBasket(cloneTemplate('#card-basket'), events);
-        productBasket.title = item.title;
-        productBasket.price = item.price;
-        productBasket.index = index + 1;
-        return productBasket.render(item);
-    })
+    const basketShopItems = basket.getProductToBasket().map((item, index) => { 
+        const productBasket = new CardBasket(cloneTemplate('#card-basket'), events); 
+ 
+        productBasket.index = index + 1; 
+        productBasket.title = item.title; 
+        productBasket.price = item.price; 
+ 
+        return productBasket.render(item); 
+    }) 
+ 
+    basketShop.basket = basketShopItems;
+    basketShop.total = basket.getSumProductToBasket();
 });
 
 events.on('card__basket:remove', (event: {id: string}) => {
@@ -114,14 +119,17 @@ events.on('card__basket:remove', (event: {id: string}) => {
 
 events.on('basket:change', () => {
     header.counter = basket.getCountProductToBasket();
-    basketShop.basket = basket.getProductToBasket().map((item, index) => {
-        const productBasket = new CardBasket(cloneTemplate('#card-basket'), events);
-        productBasket.title = item.title;
-        productBasket.price = item.price;
-        productBasket.index = index + 1;
-        return productBasket.render(item);
-    })
-
+    const basketShopItems = basket.getProductToBasket().map((item, index) => { 
+        const productBasket = new CardBasket(cloneTemplate('#card-basket'), events); 
+ 
+        productBasket.index = index + 1; 
+        productBasket.title = item.title; 
+        productBasket.price = item.price; 
+ 
+        return productBasket.render(item); 
+    }) 
+ 
+    basketShop.basket = basketShopItems;
     basketShop.total = basket.getSumProductToBasket();
 });
 
