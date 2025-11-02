@@ -2,7 +2,12 @@ import { IBuyer } from "../../types";
 import { IEvents } from "../base/Events";
 
 export class Buyer {
-    buyerData: IBuyer | null = null;
+    protected  buyerData: IBuyer  = {
+                payment: null,
+                email: '',
+                phone: '',
+                address: ''
+            };
 
     constructor(protected events: IEvents) {}
 
@@ -16,15 +21,21 @@ export class Buyer {
             };
         }
         Object.assign(this.buyerData, data);
-        this.events.emit('form:validate');
+        this.events.emit('buyer:change');
     }
 
-    getBuyerData(): IBuyer | null {
+    getBuyerData(): IBuyer {
         return this.buyerData;
     }
 
     clearBuyerData(): void {
-        this.buyerData = null;
+        this.buyerData = {
+                payment: null,
+                email: '',
+                phone: '',
+                address: ''
+            };
+        this.events.emit('buyer:change');
     }
 
     isValidData(): Record<string, string> {

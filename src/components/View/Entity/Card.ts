@@ -12,13 +12,17 @@ export interface ICard extends Partial<IProduct> {
 export abstract class Card<T extends ICard> extends Component<T> {
     protected cardTitle: HTMLElement;
     protected cardPrice: HTMLElement;
-    protected id?: string;
+    protected CardId?: string;
 
     constructor(container: HTMLElement) {
         super(container);
 
         this.cardTitle = ensureElement<HTMLElement>('.card__title', this.container);
         this.cardPrice = ensureElement<HTMLElement>('.card__price', this.container);
+    }
+
+    set id(value: string) {
+        this.CardId = value;
     }
 
     set title(value: string) {

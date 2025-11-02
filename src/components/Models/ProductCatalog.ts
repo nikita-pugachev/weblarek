@@ -2,8 +2,8 @@ import { IProduct } from '../../types/';
 import { IEvents } from '../base/Events';
 
 export class ProductCatalog {
-    productsList: IProduct[] = [];
-    choosenProduct: IProduct | null = null;
+    protected productsList: IProduct[] = [];
+    protected choosenProduct: IProduct | null = null;
 
     constructor(protected events: IEvents) {}
 

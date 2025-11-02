@@ -8,7 +8,6 @@ interface IBasketShop {
 }
 
 export class BasketShop extends Component<IBasketShop> {
-    protected basketTitle: HTMLElement;
     protected basketButton: HTMLButtonElement;
     protected basketContainer: HTMLElement;
     protected totalPrice: HTMLElement;
@@ -16,7 +15,6 @@ export class BasketShop extends Component<IBasketShop> {
     constructor(container: HTMLElement, protected events: IEvents) {
         super(container);
 
-        this.basketTitle = ensureElement<HTMLElement>('.modal__title', this.container);
         this.basketButton = ensureElement<HTMLButtonElement>('.basket__button', this.container);
         this.basketContainer = ensureElement<HTMLElement>('.basket__list', this.container);
         this.totalPrice = ensureElement<HTMLElement>('.basket__price', this.container);

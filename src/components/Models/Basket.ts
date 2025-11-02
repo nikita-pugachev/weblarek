@@ -2,13 +2,9 @@ import { IProduct } from "../../types";
 import { IEvents } from "../base/Events";
 
 export class Basket {
-    productShopList: IProduct[] = [];
+    protected productShopList: IProduct[] = [];
 
     constructor(protected events: IEvents) {}
-
-    getProductToBasket(): IProduct[] {
-        return this.productShopList;
-    }
 
     addProductToBasket(product: IProduct): void {
         this.productShopList.push(product);
@@ -17,11 +13,16 @@ export class Basket {
 
     removeProductFromBasket(product: IProduct): void {
         this.productShopList = this.productShopList.filter(item => item.id !== product.id);
-        this.events.emit('basket:remove-card');
+        this.events.emit('basket:change');
+    }
+
+    getProductToBasket(): IProduct[] {
+        return this.productShopList;
     }
 
     clearBasket(): void {
         this.productShopList = [];
+        this.events.emit('basket:change')
     }
 
     getSumProductToBasket(): number {

@@ -1,4 +1,4 @@
-import { IOrder, IOrderResponse, IProductResponse } from "../../types";
+import { IOrderResponse, IProductResponse } from "../../types";
 import { Api } from "../base/Api";
 
 

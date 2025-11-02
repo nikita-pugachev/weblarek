@@ -1,6 +1,4 @@
 import './scss/styles.scss';
-import { Api } from './components/base/Api';
-import { Component } from './components/base/Component';
 import { EventEmitter } from './components/base/Events';
 import { Basket } from './components/Models/Basket';
 import { Buyer } from './components/Models/Buyer';
@@ -16,9 +14,9 @@ import { Header } from './components/View/Header';
 import { Modal } from './components/View/Modal';
 import { Order } from './components/View/Order';
 import { Success } from './components/View/Success';
-import { API_URL, CDN_URL } from './utils/constants';
+import { API_URL} from './utils/constants';
 import { cloneTemplate, ensureElement } from './utils/utils';
-import { IBuyer, IOrderResponse, IProduct, IProductResponse } from './types';
+import { IBuyer, IOrderResponse, IProductResponse } from './types';
 
 const api = new Communication(API_URL);
 const events = new EventEmitter();
@@ -32,6 +30,7 @@ const buyer = new Buyer(events);
 const orderForm = new Order(cloneTemplate("#order"), events);
 const contactFrom = new Contact(cloneTemplate("#contacts"), events);
 const success = new Success(cloneTemplate("#success"), events);
+const preview = new CardPreview(cloneTemplate('#card-preview'), events);
 
 api.getProductList().then((result: IProductResponse) => {
     console.log('Данные получены');
@@ -49,11 +48,10 @@ events.on('catalog:change', () => {
 });
 
 events.on('card:click', (event: {id: string}) => {
-    const item = products.saveChoosenProduct(event.id);
+    products.saveChoosenProduct(event.id);
 });
 
 events.on('card:choose', () => {
-    const preview = new CardPreview(cloneTemplate('#card-preview'), events);
     const product = products.getChoosenProduct();
 
     if(!product) {
@@ -89,25 +87,19 @@ events.on('card__preview:click', () => {
 });
 
 events.on('basket:open', () => {
-    const basketShopItems = basket.getProductToBasket().map((item, index) => {
-        const productBasket = new CardBasket(cloneTemplate('#card-basket'), events);
-
-        productBasket.index = index + 1;
-        productBasket.title = item.title;
-        productBasket.price = item.price;
-
-        return productBasket.render(item);
-    })
-
-    basketShop.basket = basketShopItems;
-    basketShop.total = basket.getSumProductToBasket();
-
     modal.openModal();
     modal.render({content: basketShop.render()});
 });
 
 events.on('basket:add-card', () => {
     header.counter = basket.getCountProductToBasket();
+    basketShop.basket = basket.getProductToBasket().map((item, index) => {
+        const productBasket = new CardBasket(cloneTemplate('#card-basket'), events);
+        productBasket.title = item.title;
+        productBasket.price = item.price;
+        productBasket.index = index + 1;
+        return productBasket.render(item);
+    })
 });
 
 events.on('card__basket:remove', (event: {id: string}) => {
@@ -120,7 +112,7 @@ events.on('card__basket:remove', (event: {id: string}) => {
     basket.removeProductFromBasket(product);
 });
 
-events.on('basket:remove-card', () => {
+events.on('basket:change', () => {
     header.counter = basket.getCountProductToBasket();
     basketShop.basket = basket.getProductToBasket().map((item, index) => {
         const productBasket = new CardBasket(cloneTemplate('#card-basket'), events);
@@ -131,7 +123,6 @@ events.on('basket:remove-card', () => {
     })
 
     basketShop.total = basket.getSumProductToBasket();
-    modal.render({content: basketShop.render()});
 });
 
 events.on('basket:success', () => {
@@ -144,7 +135,7 @@ events.on('form:change', (event: {field: keyof IBuyer, value: string}) => {
     buyer.saveBuyerData({[event.field]: event.value});
 });
 
-events.on('form:validate', () => {
+events.on('buyer:change', () => {
     const errors = buyer.isValidData();
 
     const data = buyer.getBuyerData();
@@ -174,21 +165,16 @@ events.on('order:submit', () => {
 });
 
 events.on('contacts:submit', () => {
-    success.total = basket.getSumProductToBasket();
-
     const buyerData = buyer.getBuyerData()
     const details: IOrderResponse = {
-        payment: buyerData?.payment as IOrderResponse['payment'],
-        email: buyerData?.email as IOrderResponse['email'],
-        phone: buyerData?.phone as IOrderResponse['phone'],
-        address: buyerData?.address as IOrderResponse['address'],
+        ...buyerData,
         total: basket.getSumProductToBasket(),
         items: basket.getProductToBasket().map(item => item.id)
     }
 
     api.postData(details).then(() => {
         basket.clearBasket();
-        header.counter = basket.getCountProductToBasket();
+        success.total = details.total;
     }).catch((error) => console.log('Error', error));
 
     modal.render({content: success.render()});
