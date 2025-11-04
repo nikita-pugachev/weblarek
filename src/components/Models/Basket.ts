@@ -8,7 +8,7 @@ export class Basket {
 
     addProductToBasket(product: IProduct): void {
         this.productShopList.push(product);
-        this.events.emit('basket:add-card');
+        this.events.emit('basket:change');
     }
 
     removeProductFromBasket(product: IProduct): void {

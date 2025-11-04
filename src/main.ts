@@ -87,11 +87,6 @@ events.on('card__preview:click', () => {
 });
 
 events.on('basket:open', () => {
-    modal.openModal();
-    modal.render({content: basketShop.render()});
-});
-
-events.on('basket:add-card', () => {
     header.counter = basket.getCountProductToBasket();
     const basketShopItems = basket.getProductToBasket().map((item, index) => { 
         const productBasket = new CardBasket(cloneTemplate('#card-basket'), events); 
@@ -105,6 +100,9 @@ events.on('basket:add-card', () => {
  
     basketShop.basket = basketShopItems;
     basketShop.total = basket.getSumProductToBasket();
+
+    modal.openModal();
+    modal.render({content: basketShop.render()});
 });
 
 events.on('card__basket:remove', (event: {id: string}) => {
