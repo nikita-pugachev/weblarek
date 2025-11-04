@@ -59,7 +59,7 @@ events.on('card:choose', () => {
     }
 
     let textButton = '';
-    if(!product.price) {
+    if(product.price === null) {
         textButton = 'Недоступно';
     } else {
         textButton = basket.isProductInBasket(product.id) ? 'Удалить из корзины' : 'Купить';
